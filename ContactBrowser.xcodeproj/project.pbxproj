@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BAA69061D075D8A006680A4 /* ContactBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69051D075D8A006680A4 /* ContactBrowserTests.swift */; };
 		3BFDA8171D0610FC00946E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFDA8161D0610FC00946E61 /* AppDelegate.swift */; };
 		3BFDA8191D0610FC00946E61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFDA8181D0610FC00946E61 /* ViewController.swift */; };
 		3BFDA81C1D0610FC00946E61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFDA81A1D0610FC00946E61 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BAA69051D075D8A006680A4 /* ContactBrowserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactBrowserTests.swift; path = ContactBrowserTests/ContactBrowserTests.swift; sourceTree = "<group>"; };
 		3BFDA8131D0610FC00946E61 /* ContactBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFDA8161D0610FC00946E61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BFDA8181D0610FC00946E61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3BAA69071D075D8F006680A4 /* ContactBrowserTest */ = {
+			isa = PBXGroup;
+			children = (
+				3BAA69051D075D8A006680A4 /* ContactBrowserTests.swift */,
+			);
+			name = ContactBrowserTest;
+			sourceTree = "<group>";
+		};
 		3BFDA80A1D0610FC00946E61 = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 				3BFDA81D1D0610FC00946E61 /* Assets.xcassets */,
 				3BFDA81F1D0610FC00946E61 /* LaunchScreen.storyboard */,
 				3BFDA8221D0610FC00946E61 /* Info.plist */,
+				3BAA69071D075D8F006680A4 /* ContactBrowserTest */,
 			);
 			path = ContactBrowser;
 			sourceTree = "<group>";
@@ -96,6 +107,7 @@
 				TargetAttributes = {
 					3BFDA8121D0610FC00946E61 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = H3Q48AQ25J;
 					};
 				};
 			};
@@ -137,6 +149,7 @@
 			files = (
 				3BFDA8191D0610FC00946E61 /* ViewController.swift in Sources */,
 				3BFDA8171D0610FC00946E61 /* AppDelegate.swift in Sources */,
+				3BAA69061D075D8A006680A4 /* ContactBrowserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,10 +264,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ContactBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ContactBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -262,10 +278,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ContactBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ContactBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -288,6 +307,7 @@
 				3BFDA8271D0610FC00946E61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

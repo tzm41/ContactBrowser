@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  ContactBrowser
 //
-//  Created by Zhuoming Tan on 6/6/16.
+//  Created by Colin Tan on 6/6/16.
 //  Copyright © 2016 Intrepid Pursuilts LLC. All rights reserved.
 //
 
