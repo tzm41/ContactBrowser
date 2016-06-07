@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BAA69061D075D8A006680A4 /* ContactBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69051D075D8A006680A4 /* ContactBrowserTests.swift */; };
+		3BAA69091D075E24006680A4 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69081D075E24006680A4 /* Person.swift */; };
+		3BAA69111D075FB8006680A4 /* ContactBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69101D075FB8006680A4 /* ContactBrowserTests.swift */; };
+		3BAA69181D0761BA006680A4 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69081D075E24006680A4 /* Person.swift */; };
 		3BFDA8171D0610FC00946E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFDA8161D0610FC00946E61 /* AppDelegate.swift */; };
 		3BFDA8191D0610FC00946E61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFDA8181D0610FC00946E61 /* ViewController.swift */; };
 		3BFDA81C1D0610FC00946E61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFDA81A1D0610FC00946E61 /* Main.storyboard */; };
@@ -15,8 +17,21 @@
 		3BFDA8211D0610FC00946E61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFDA81F1D0610FC00946E61 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3BAA69131D075FB8006680A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3BFDA80B1D0610FC00946E61 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3BFDA8121D0610FC00946E61;
+			remoteInfo = ContactBrowser;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		3BAA69051D075D8A006680A4 /* ContactBrowserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContactBrowserTests.swift; path = ContactBrowserTests/ContactBrowserTests.swift; sourceTree = "<group>"; };
+		3BAA69081D075E24006680A4 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		3BAA690E1D075FB8006680A4 /* ContactBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BAA69101D075FB8006680A4 /* ContactBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactBrowserTests.swift; sourceTree = "<group>"; };
+		3BAA69121D075FB8006680A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BFDA8131D0610FC00946E61 /* ContactBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFDA8161D0610FC00946E61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BFDA8181D0610FC00946E61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,6 +42,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3BAA690B1D075FB8006680A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BFDA8101D0610FC00946E61 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -37,18 +59,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3BAA69071D075D8F006680A4 /* ContactBrowserTest */ = {
+		3BAA690F1D075FB8006680A4 /* ContactBrowserTests */ = {
 			isa = PBXGroup;
 			children = (
-				3BAA69051D075D8A006680A4 /* ContactBrowserTests.swift */,
+				3BAA69101D075FB8006680A4 /* ContactBrowserTests.swift */,
+				3BAA69121D075FB8006680A4 /* Info.plist */,
 			);
-			name = ContactBrowserTest;
+			path = ContactBrowserTests;
 			sourceTree = "<group>";
 		};
 		3BFDA80A1D0610FC00946E61 = {
 			isa = PBXGroup;
 			children = (
 				3BFDA8151D0610FC00946E61 /* ContactBrowser */,
+				3BAA690F1D075FB8006680A4 /* ContactBrowserTests */,
 				3BFDA8141D0610FC00946E61 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				3BFDA8131D0610FC00946E61 /* ContactBrowser.app */,
+				3BAA690E1D075FB8006680A4 /* ContactBrowserTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,7 +95,7 @@
 				3BFDA81D1D0610FC00946E61 /* Assets.xcassets */,
 				3BFDA81F1D0610FC00946E61 /* LaunchScreen.storyboard */,
 				3BFDA8221D0610FC00946E61 /* Info.plist */,
-				3BAA69071D075D8F006680A4 /* ContactBrowserTest */,
+				3BAA69081D075E24006680A4 /* Person.swift */,
 			);
 			path = ContactBrowser;
 			sourceTree = "<group>";
@@ -78,6 +103,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3BAA690D1D075FB8006680A4 /* ContactBrowserTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BAA69151D075FB8006680A4 /* Build configuration list for PBXNativeTarget "ContactBrowserTests" */;
+			buildPhases = (
+				3BAA690A1D075FB8006680A4 /* Sources */,
+				3BAA690B1D075FB8006680A4 /* Frameworks */,
+				3BAA690C1D075FB8006680A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3BAA69141D075FB8006680A4 /* PBXTargetDependency */,
+			);
+			name = ContactBrowserTests;
+			productName = ContactBrowserTests;
+			productReference = 3BAA690E1D075FB8006680A4 /* ContactBrowserTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3BFDA8121D0610FC00946E61 /* ContactBrowser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BFDA8251D0610FC00946E61 /* Build configuration list for PBXNativeTarget "ContactBrowser" */;
@@ -105,6 +148,10 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Intrepid Pursuilts LLC";
 				TargetAttributes = {
+					3BAA690D1D075FB8006680A4 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 3BFDA8121D0610FC00946E61;
+					};
 					3BFDA8121D0610FC00946E61 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = H3Q48AQ25J;
@@ -125,11 +172,19 @@
 			projectRoot = "";
 			targets = (
 				3BFDA8121D0610FC00946E61 /* ContactBrowser */,
+				3BAA690D1D075FB8006680A4 /* ContactBrowserTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3BAA690C1D075FB8006680A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BFDA8111D0610FC00946E61 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,17 +198,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3BAA690A1D075FB8006680A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BAA69181D0761BA006680A4 /* Person.swift in Sources */,
+				3BAA69111D075FB8006680A4 /* ContactBrowserTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BFDA80F1D0610FC00946E61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3BFDA8191D0610FC00946E61 /* ViewController.swift in Sources */,
 				3BFDA8171D0610FC00946E61 /* AppDelegate.swift in Sources */,
-				3BAA69061D075D8A006680A4 /* ContactBrowserTests.swift in Sources */,
+				3BAA69091D075E24006680A4 /* Person.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3BAA69141D075FB8006680A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3BFDA8121D0610FC00946E61 /* ContactBrowser */;
+			targetProxy = 3BAA69131D075FB8006680A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3BFDA81A1D0610FC00946E61 /* Main.storyboard */ = {
@@ -175,6 +247,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3BAA69161D075FB8006680A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ContactBrowserTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ContactBrowserTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContactBrowser.app/ContactBrowser";
+			};
+			name = Debug;
+		};
+		3BAA69171D075FB8006680A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = ContactBrowserTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ContactBrowserTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContactBrowser.app/ContactBrowser";
+			};
+			name = Release;
+		};
 		3BFDA8231D0610FC00946E61 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -291,6 +387,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3BAA69151D075FB8006680A4 /* Build configuration list for PBXNativeTarget "ContactBrowserTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BAA69161D075FB8006680A4 /* Debug */,
+				3BAA69171D075FB8006680A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		3BFDA80E1D0610FC00946E61 /* Build configuration list for PBXProject "ContactBrowser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
