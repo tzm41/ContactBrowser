@@ -10,6 +10,7 @@
 		3BAA69091D075E24006680A4 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69081D075E24006680A4 /* Person.swift */; };
 		3BAA69111D075FB8006680A4 /* ContactBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69101D075FB8006680A4 /* ContactBrowserTests.swift */; };
 		3BAA69181D0761BA006680A4 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69081D075E24006680A4 /* Person.swift */; };
+		3BAA691A1D07648D006680A4 /* PersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA69191D07648D006680A4 /* PersonTableViewCell.swift */; };
 		3BFDA8171D0610FC00946E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFDA8161D0610FC00946E61 /* AppDelegate.swift */; };
 		3BFDA8191D0610FC00946E61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFDA8181D0610FC00946E61 /* ViewController.swift */; };
 		3BFDA81C1D0610FC00946E61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BFDA81A1D0610FC00946E61 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		3BAA690E1D075FB8006680A4 /* ContactBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAA69101D075FB8006680A4 /* ContactBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactBrowserTests.swift; sourceTree = "<group>"; };
 		3BAA69121D075FB8006680A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BAA69191D07648D006680A4 /* PersonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTableViewCell.swift; sourceTree = "<group>"; };
 		3BFDA8131D0610FC00946E61 /* ContactBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFDA8161D0610FC00946E61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BFDA8181D0610FC00946E61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B5154901D086C5B005E7211 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3BFDA8161D0610FC00946E61 /* AppDelegate.swift */,
+				3BFDA81D1D0610FC00946E61 /* Assets.xcassets */,
+				3BFDA8221D0610FC00946E61 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3B5154911D086C70005E7211 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3BAA69081D075E24006680A4 /* Person.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3B5154921D086C8C005E7211 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3BFDA81A1D0610FC00946E61 /* Main.storyboard */,
+				3BAA69191D07648D006680A4 /* PersonTableViewCell.swift */,
+				3BFDA81F1D0610FC00946E61 /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		3B5154931D086C99005E7211 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3BFDA8181D0610FC00946E61 /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		3BAA690F1D075FB8006680A4 /* ContactBrowserTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,13 +127,10 @@
 		3BFDA8151D0610FC00946E61 /* ContactBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				3BFDA8161D0610FC00946E61 /* AppDelegate.swift */,
-				3BFDA8181D0610FC00946E61 /* ViewController.swift */,
-				3BFDA81A1D0610FC00946E61 /* Main.storyboard */,
-				3BFDA81D1D0610FC00946E61 /* Assets.xcassets */,
-				3BFDA81F1D0610FC00946E61 /* LaunchScreen.storyboard */,
-				3BFDA8221D0610FC00946E61 /* Info.plist */,
-				3BAA69081D075E24006680A4 /* Person.swift */,
+				3B5154931D086C99005E7211 /* Controller */,
+				3B5154911D086C70005E7211 /* Model */,
+				3B5154901D086C5B005E7211 /* Supporting Files */,
+				3B5154921D086C8C005E7211 /* View */,
 			);
 			path = ContactBrowser;
 			sourceTree = "<group>";
@@ -213,6 +248,7 @@
 			files = (
 				3BFDA8191D0610FC00946E61 /* ViewController.swift in Sources */,
 				3BFDA8171D0610FC00946E61 /* AppDelegate.swift in Sources */,
+				3BAA691A1D07648D006680A4 /* PersonTableViewCell.swift in Sources */,
 				3BAA69091D075E24006680A4 /* Person.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,7 +400,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ContactBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ContactBrowser;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colintan.ContactBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -378,7 +414,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ContactBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ContactBrowser;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colintan.ContactBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -394,6 +430,7 @@
 				3BAA69171D075FB8006680A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3BFDA80E1D0610FC00946E61 /* Build configuration list for PBXProject "ContactBrowser" */ = {
 			isa = XCConfigurationList;
