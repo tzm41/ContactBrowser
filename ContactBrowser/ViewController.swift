@@ -7,51 +7,60 @@
 //
 
 import UIKit
+import Contacts
 
-class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
-
-    // MARK: Properties
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var peopleTableView: UITableView!
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+    // MARK: - Properties
+    @IBOutlet private weak var peopleTableView: UITableView!
     
-    private var inputSearchText: String?
     private var people = [Person]()
+    private var peopleSearchResult = [Person]()
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    private var isSearching: Bool {
+        return searchController.active && searchController.searchBar.text != ""
+    }
+    
+    private var sectionedContacts = [Character: [Person]]()
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchTextField.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        
         peopleTableView.delegate = self
         peopleTableView.dataSource = self
+        peopleTableView.tableHeaderView = searchController.searchBar
         
-        loadSamplePeople()
+        loadSystemPeople()
     }
     
-    // MARK: UITextFieldDelegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        inputSearchText = textField.text
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: UITableViewDelegate
+    // MARK: - UITableViewDelegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSearching {
+            return peopleSearchResult.count
+        }
         return people.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("PersonTableViewCell", forIndexPath: indexPath) as! PersonTableViewCell
         
-        // fetch person for data source layout
-        let person = people[indexPath.row]
+        let person: Person
+        if isSearching {
+            person = peopleSearchResult[indexPath.row]
+        } else {
+            person = people[indexPath.row]
+        }
         
         cell.nameLabel.text = person.name
         cell.numberLabel.text = person.number
@@ -60,17 +69,81 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        people[indexPath.row].callNumber()
-    }
+        if isSearching {
+            peopleSearchResult[indexPath.row].callNumber()
+        } else {
+			people[indexPath.row].callNumber()
+		}
+		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	}
 
+	// MARK: - UISearchController
+	func updateSearchResultsForSearchController(searchController: UISearchController) {
+		filterContentForSearchText(searchController.searchBar.text!)
+	}
+
+	private func filterContentForSearchText(searchText: String) {
+		peopleSearchResult = people.filter { aPerson in
+			return aPerson.name.lowercaseString.containsString(searchText.lowercaseString) || aPerson.number.containsString(searchText)
+		}
+
+		peopleTableView.reloadData()
+	}
     
-    // MARK: Sample Data
-    func loadSamplePeople() {
-        let p1 = Person(name: "David Angle", number: "774-312-3300")
-        let p2 = Person(name: "Jen Laponte", number: "242-597-1280")
-        let p3 = Person(name: "Daniel Patronsky", number: "433-997-0926")
-        let p4 = Person(name: "Steven Rogers", number: "991-567-8324")
-        people += [p1, p2, p3, p4]
-    }
+	// MARK: - Data Source
+	private func loadSystemPeople() {
+		let store = CNContactStore()
+		let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+
+		var allContainers = [CNContainer]()
+		do {
+			allContainers = try store.containersMatchingPredicate(nil)
+		} catch {
+			print("Error fetching contact containers")
+		}
+
+		var contacts = [CNContact]()
+
+		for container in allContainers {
+			let fetchPredicate = CNContact.predicateForContactsInContainerWithIdentifier(container.identifier)
+
+			do {
+				let containerResults = try store.unifiedContactsMatchingPredicate(fetchPredicate, keysToFetch: keysToFetch)
+				contacts.appendContentsOf(containerResults)
+
+			} catch {
+				print("Error fecthing results for contact containers")
+			}
+		}
+        
+        for contact in contacts {
+            for number in contact.phoneNumbers {
+                people.append(Person(name: contact.givenName + " " + contact.familyName, number: (number.value as! CNPhoneNumber).stringValue))
+            }
+        }
+        people = people.sort { $0.name < $1.name }
+	}
+    
+	private func buildSectionHeaderTable() {
+        // contacts list should have been sorted
+		var letters = people.map { (person: Person) -> Character in
+			return person.name[person.name.startIndex]
+		}
+
+		letters = letters.reduce([], combine: { (list, name) -> [Character] in
+			if !list.contains(name) {
+				return list + [name]
+			}
+			return list
+		})
+        
+        for person in people {
+            if sectionedContacts[person.name[person.name.startIndex]] == nil {
+                sectionedContacts[person.name[person.name.startIndex]] = [Person]()
+            }
+            
+            sectionedContacts[person.name[person.name.startIndex]]!.append(person)
+        }
+	}
 }
 

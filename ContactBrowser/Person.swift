@@ -13,7 +13,7 @@ struct Person {
     var number: String
     
     func callNumber() {
-        if let url = NSURL(string: "tel://" + number) {
+        if let url = NSURL(string: "telprompt:" + number) {
             UIApplication.sharedApplication().openURL(url)
         }
     }

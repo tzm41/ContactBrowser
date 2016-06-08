@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3BFDA8121D0610FC00946E61"
-               BuildableName = "ContactBrowser.app"
+               BuildableName = "CBrowser.app"
                BlueprintName = "ContactBrowser"
                ReferencedContainer = "container:ContactBrowser.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3BFDA8121D0610FC00946E61"
-            BuildableName = "ContactBrowser.app"
+            BuildableName = "CBrowser.app"
             BlueprintName = "ContactBrowser"
             ReferencedContainer = "container:ContactBrowser.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3BFDA8121D0610FC00946E61"
-            BuildableName = "ContactBrowser.app"
+            BuildableName = "CBrowser.app"
             BlueprintName = "ContactBrowser"
             ReferencedContainer = "container:ContactBrowser.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3BFDA8121D0610FC00946E61"
-            BuildableName = "ContactBrowser.app"
+            BuildableName = "CBrowser.app"
             BlueprintName = "ContactBrowser"
             ReferencedContainer = "container:ContactBrowser.xcodeproj">
          </BuildableReference>
