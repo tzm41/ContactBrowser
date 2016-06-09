@@ -2,8 +2,8 @@
 //  Person.swift
 //  ContactBrowser
 //
-//  Created by Zhuoming Tan on 6/7/16.
-//  Copyright © 2016 Intrepid Pursuilts LLC. All rights reserved.
+//  Created by Colin Tan on 6/7/16.
+//  Copyright © 2016 Intrepid Pursuits LLC. All rights reserved.
 //
 
 import UIKit

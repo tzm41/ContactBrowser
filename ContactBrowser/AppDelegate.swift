@@ -3,7 +3,7 @@
 //  ContactBrowser
 //
 //  Created by Colin Tan on 6/6/16.
-//  Copyright © 2016 Intrepid Pursuilts LLC. All rights reserved.
+//  Copyright © 2016 Intrepid Pursuits LLC. All rights reserved.
 //
 
 import UIKit

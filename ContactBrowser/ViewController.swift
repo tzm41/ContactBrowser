@@ -3,76 +3,110 @@
 //  ContactBrowser
 //
 //  Created by Colin Tan on 6/6/16.
-//  Copyright © 2016 Intrepid Pursuilts LLC. All rights reserved.
+//  Copyright © 2016 Intrepid Pursuits LLC. All rights reserved.
 //
 
 import UIKit
 import Contacts
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
-    // MARK: - Properties
-    @IBOutlet private weak var peopleTableView: UITableView!
+	// MARK: - Properties
+	@IBOutlet private weak var peopleTableView: UITableView!
+
+	private var people = [Person]()
+	private var peopleSearchResult = [Person]()
+
+	private let searchController = UISearchController(searchResultsController: nil)
+
+	private var isSearching: Bool {
+		return searchController.active && searchController.searchBar.text != ""
+	}
+
+	private var sectionedContacts = [Character: [Person]]()
+
+	private var sortedSectionedContactsKeys: [Character] {
+		return Array(sectionedContacts.keys).sort()
+	}
+
+	// MARK: - Life Cycle
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		searchController.searchResultsUpdater = self
+		searchController.dimsBackgroundDuringPresentation = false
+		definesPresentationContext = true
+
+		peopleTableView.delegate = self
+		peopleTableView.dataSource = self
+		peopleTableView.tableHeaderView = searchController.searchBar
+
+		loadSystemPeople()
+		buildSectionHeaderTable(people)
+	}
+
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
+
+	// MARK: - UITableViewDelegate
+	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+		if isSearching {
+			return 1
+		} else {
+			return sectionedContacts.keys.count
+		}
+	}
+
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if isSearching {
+			return peopleSearchResult.count
+		} else {
+			return sectionedContacts[sortedSectionedContactsKeys[section]]!.count
+		}
+	}
+
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCellWithIdentifier("PersonTableViewCell", forIndexPath: indexPath) as! PersonTableViewCell
+
+		let person: Person
+		if isSearching {
+			person = peopleSearchResult[indexPath.row]
+
+			cell.nameLabel.text = person.name
+			cell.numberLabel.text = person.number
+		} else {
+			let key = sortedSectionedContactsKeys[indexPath.section]
+			if let peopleInThisSection = sectionedContacts[key] {
+				let person = peopleInThisSection[indexPath.row]
+				cell.nameLabel.text = person.name
+				cell.numberLabel.text = person.number
+
+			}
+		}
+		return cell
+	}
+
+	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		if isSearching {
+			return ""
+		} else {
+			return String(sortedSectionedContactsKeys[section])
+		}
+	}
+
+	func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+		return sortedSectionedContactsKeys.map { String($0) }
+	}
     
-    private var people = [Person]()
-    private var peopleSearchResult = [Person]()
-    
-    private let searchController = UISearchController(searchResultsController: nil)
-    
-    private var isSearching: Bool {
-        return searchController.active && searchController.searchBar.text != ""
-    }
-    
-    private var sectionedContacts = [Character: [Person]]()
-    
-    // MARK: - Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-        
-        peopleTableView.delegate = self
-        peopleTableView.dataSource = self
-        peopleTableView.tableHeaderView = searchController.searchBar
-        
-        loadSystemPeople()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: - UITableViewDelegate
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearching {
-            return peopleSearchResult.count
-        }
-        return people.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PersonTableViewCell", forIndexPath: indexPath) as! PersonTableViewCell
-        
-        let person: Person
-        if isSearching {
-            person = peopleSearchResult[indexPath.row]
-        } else {
-            person = people[indexPath.row]
-        }
-        
-        cell.nameLabel.text = person.name
-        cell.numberLabel.text = person.number
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if isSearching {
-            peopleSearchResult[indexPath.row].callNumber()
-        } else {
-			people[indexPath.row].callNumber()
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		if isSearching {
+			peopleSearchResult[indexPath.row].callNumber()
+		} else {
+            let key = sortedSectionedContactsKeys[indexPath.section]
+            if let peopleInThisSection = sectionedContacts[key] {
+                peopleInThisSection[indexPath.row].callNumber()
+            }
 		}
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 	}
@@ -89,7 +123,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 		peopleTableView.reloadData()
 	}
-    
+
 	// MARK: - Data Source
 	private func loadSystemPeople() {
 		let store = CNContactStore()
@@ -115,18 +149,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 				print("Error fecthing results for contact containers")
 			}
 		}
-        
-        for contact in contacts {
-            for number in contact.phoneNumbers {
-                people.append(Person(name: contact.givenName + " " + contact.familyName, number: (number.value as! CNPhoneNumber).stringValue))
-            }
-        }
-        people = people.sort { $0.name < $1.name }
+
+		for contact in contacts {
+			for number in contact.phoneNumbers {
+				people.append(Person(name: contact.givenName + " " + contact.familyName, number: (number.value as! CNPhoneNumber).stringValue))
+			}
+		}
+		people = people.sort { $0.name < $1.name }
 	}
-    
-	private func buildSectionHeaderTable() {
-        // contacts list should have been sorted
-		var letters = people.map { (person: Person) -> Character in
+
+	private func buildSectionHeaderTable(peopleToBeSectioned: [Person]) {
+		// contacts list should have been sorted
+		var letters = peopleToBeSectioned.map { (person: Person) -> Character in
 			return person.name[person.name.startIndex]
 		}
 
@@ -136,14 +170,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 			}
 			return list
 		})
-        
-        for person in people {
-            if sectionedContacts[person.name[person.name.startIndex]] == nil {
-                sectionedContacts[person.name[person.name.startIndex]] = [Person]()
-            }
-            
-            sectionedContacts[person.name[person.name.startIndex]]!.append(person)
-        }
+
+		for person in peopleToBeSectioned {
+			if sectionedContacts[person.name[person.name.startIndex]] == nil {
+				sectionedContacts[person.name[person.name.startIndex]] = [Person]()
+			}
+
+			sectionedContacts[person.name[person.name.startIndex]]!.append(person)
+		}
 	}
 }
 

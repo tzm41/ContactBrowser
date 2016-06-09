@@ -181,7 +181,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Intrepid Pursuilts LLC";
+				ORGANIZATIONNAME = "Intrepid Pursuits LLC";
 				TargetAttributes = {
 					3BAA690D1D075FB8006680A4 = {
 						CreatedOnToolsVersion = 7.3.1;
