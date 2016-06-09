@@ -9,7 +9,7 @@
 import UIKit
 import Contacts
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	// MARK: - Properties
 	@IBOutlet private weak var peopleTableView: UITableView!
 
@@ -110,20 +110,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 		}
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 	}
-
-	// MARK: - UISearchController
-	func updateSearchResultsForSearchController(searchController: UISearchController) {
-		filterContentForSearchText(searchController.searchBar.text!)
-	}
-
-	private func filterContentForSearchText(searchText: String) {
-		peopleSearchResult = people.filter { aPerson in
-			return aPerson.name.lowercaseString.containsString(searchText.lowercaseString) || aPerson.number.containsString(searchText)
-		}
-
-		peopleTableView.reloadData()
-	}
-
 	// MARK: - Data Source
 	private func loadSystemPeople() {
 		let store = CNContactStore()
@@ -179,5 +165,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 			sectionedContacts[person.name[person.name.startIndex]]!.append(person)
 		}
 	}
+}
+
+// MARK: - UISearchController
+extension ViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
+    private func filterContentForSearchText(searchText: String) {
+        peopleSearchResult = people.filter { aPerson in
+            return aPerson.name.lowercaseString.containsString(searchText.lowercaseString) || aPerson.number.containsString(searchText)
+        }
+        
+        peopleTableView.reloadData()
+    }
 }
 
