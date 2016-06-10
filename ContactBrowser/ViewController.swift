@@ -39,10 +39,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 		peopleTableView.delegate = self
 		peopleTableView.dataSource = self
 		peopleTableView.tableHeaderView = searchController.searchBar
-
-		loadSystemPeople()
-		buildSectionHeaderTable(people)
 	}
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        loadSystemPeople()
+        buildSectionHeaderTable(people)
+    }
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -69,21 +72,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier("PersonTableViewCell", forIndexPath: indexPath) as! PersonTableViewCell
 
-		let person: Person
-		if isSearching {
-			person = peopleSearchResult[indexPath.row]
-
-			cell.nameLabel.text = person.name
+		if let person = personAtIndexPath(indexPath) {
+            cell.nameLabel.text = person.name
 			cell.numberLabel.text = person.number
-		} else {
-			let key = sortedSectionedContactsKeys[indexPath.section]
-			if let peopleInThisSection = sectionedContacts[key] {
-				let person = peopleInThisSection[indexPath.row]
-				cell.nameLabel.text = person.name
-				cell.numberLabel.text = person.number
-
-			}
-		}
+        }
 		return cell
 	}
 
@@ -100,18 +92,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 	}
     
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if isSearching {
-			peopleSearchResult[indexPath.row].callNumber()
-		} else {
-            let key = sortedSectionedContactsKeys[indexPath.section]
-            if let peopleInThisSection = sectionedContacts[key] {
-                peopleInThisSection[indexPath.row].callNumber()
-            }
-		}
+        if let person = personAtIndexPath(indexPath) {
+            person.callNumber()
+        }
+
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 	}
+    
+    func personAtIndexPath(indexPath: NSIndexPath) -> Person? {
+        if isSearching {
+            return peopleSearchResult[indexPath.row]
+        } else {
+            let key = sortedSectionedContactsKeys[indexPath.section]
+            if let peopleInThisSection = sectionedContacts[key] {
+                return peopleInThisSection[indexPath.row]
+            } else {
+                return nil
+            }
+        }
+    }
+    
 	// MARK: - Data Source
 	private func loadSystemPeople() {
+        people.removeAll()
 		let store = CNContactStore()
 		let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
 
@@ -145,6 +148,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 	}
 
 	private func buildSectionHeaderTable(peopleToBeSectioned: [Person]) {
+        sectionedContacts.removeAll()
 		// contacts list should have been sorted
 		var letters = peopleToBeSectioned.map { (person: Person) -> Character in
 			return person.name[person.name.startIndex]

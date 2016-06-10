@@ -189,7 +189,7 @@
 					};
 					3BFDA8121D0610FC00946E61 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = H3Q48AQ25J;
+						DevelopmentTeam = THP5EV5EJ9;
 					};
 				};
 			};
@@ -400,7 +400,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ContactBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.colintan.ContactBrowser;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colintan.CBrowser;
 				PRODUCT_NAME = CBrowser;
 				PROVISIONING_PROFILE = "";
 			};
@@ -414,7 +414,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ContactBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.colintan.ContactBrowser;
+				PRODUCT_BUNDLE_IDENTIFIER = com.colintan.CBrowser;
 				PRODUCT_NAME = CBrowser;
 				PROVISIONING_PROFILE = "";
 			};
