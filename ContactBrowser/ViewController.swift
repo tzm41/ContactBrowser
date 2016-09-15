@@ -11,21 +11,21 @@ import Contacts
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	// MARK: - Properties
-	@IBOutlet private weak var peopleTableView: UITableView!
+	@IBOutlet fileprivate weak var peopleTableView: UITableView!
 
-	private var people = [Person]()
-	private var peopleSearchResult = [Person]()
+	fileprivate var people = [Person]()
+	fileprivate var peopleSearchResult = [Person]()
 
 	private let searchController = UISearchController(searchResultsController: nil)
 
 	private var isSearching: Bool {
-		return searchController.active && searchController.searchBar.text != ""
+		return searchController.isActive && searchController.searchBar.text != ""
 	}
 
 	private var sectionedContacts = [Character: [Person]]()
 
 	private var sortedSectionedContactsKeys: [Character] {
-		return Array(sectionedContacts.keys).sort()
+		return Array(sectionedContacts.keys).sorted()
 	}
 
 	// MARK: - Life Cycle
@@ -41,19 +41,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 		peopleTableView.tableHeaderView = searchController.searchBar
 	}
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         loadSystemPeople()
-        buildSectionHeaderTable(people)
+        buildSectionHeaderTable(for: people)
     }
 
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-
 	// MARK: - UITableViewDelegate
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		if isSearching {
 			return 1
 		} else {
@@ -61,7 +56,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 		}
 	}
 
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if isSearching {
 			return peopleSearchResult.count
 		} else {
@@ -69,17 +64,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 		}
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("PersonTableViewCell", forIndexPath: indexPath) as! PersonTableViewCell
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "PersonTableViewCell", for: indexPath) as! PersonTableViewCell
 
-		if let person = personAtIndexPath(indexPath) {
+        if let person = person(at: indexPath) {
             cell.nameLabel.text = person.name
 			cell.numberLabel.text = person.number
         }
 		return cell
 	}
 
-	func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		if isSearching {
 			return ""
 		} else {
@@ -87,19 +82,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 		}
 	}
 
-	func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+	func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 		return sortedSectionedContactsKeys.map { String($0) }
 	}
     
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let person = personAtIndexPath(indexPath) {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let person = person(at: indexPath) {
             person.callNumber()
         }
 
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+		tableView.deselectRow(at: indexPath, animated: true)
 	}
     
-    func personAtIndexPath(indexPath: NSIndexPath) -> Person? {
+    private func person(at indexPath: IndexPath) -> Person? {
         if isSearching {
             return peopleSearchResult[indexPath.row]
         } else {
@@ -112,7 +107,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-	// MARK: - Data Source
+	// MARK: - UITableViewDataSource
 	private func loadSystemPeople() {
         people.removeAll()
 		let store = CNContactStore()
@@ -120,7 +115,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 		var allContainers = [CNContainer]()
 		do {
-			allContainers = try store.containersMatchingPredicate(nil)
+			allContainers = try store.containers(matching: nil)
 		} catch {
 			print("Error fetching contact containers")
 		}
@@ -128,11 +123,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 		var contacts = [CNContact]()
 
 		for container in allContainers {
-			let fetchPredicate = CNContact.predicateForContactsInContainerWithIdentifier(container.identifier)
+			let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
 
 			do {
-				let containerResults = try store.unifiedContactsMatchingPredicate(fetchPredicate, keysToFetch: keysToFetch)
-				contacts.appendContentsOf(containerResults)
+				let containerResults = try store.unifiedContacts(matching: fetchPredicate, keysToFetch: keysToFetch as [CNKeyDescriptor])
+				contacts.append(contentsOf: containerResults)
 
 			} catch {
 				print("Error fecthing results for contact containers")
@@ -141,25 +136,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 		for contact in contacts {
 			for number in contact.phoneNumbers {
-				people.append(Person(name: contact.givenName + " " + contact.familyName, number: (number.value as! CNPhoneNumber).stringValue))
+				people.append(Person(name: contact.givenName + " " + contact.familyName, number: number.value.stringValue))
 			}
 		}
-		people = people.sort { $0.name < $1.name }
+		people.sort { $0.name < $1.name }
 	}
 
-	private func buildSectionHeaderTable(peopleToBeSectioned: [Person]) {
+	private func buildSectionHeaderTable(for peopleToBeSectioned: [Person]) {
         sectionedContacts.removeAll()
 		// contacts list should have been sorted
 		var letters = peopleToBeSectioned.map { (person: Person) -> Character in
 			return person.name[person.name.startIndex]
 		}
 
-		letters = letters.reduce([], combine: { (list, name) -> [Character] in
+		letters = letters.reduce([]) { (list, name) -> [Character] in
 			if !list.contains(name) {
 				return list + [name]
 			}
 			return list
-		})
+		}
 
 		for person in peopleToBeSectioned {
 			if sectionedContacts[person.name[person.name.startIndex]] == nil {
@@ -173,13 +168,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 // MARK: - UISearchController
 extension ViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContent(for: searchController.searchBar.text!)
     }
     
-    private func filterContentForSearchText(searchText: String) {
+    private func filterContent(for searchText: String) {
         peopleSearchResult = people.filter { aPerson in
-            return aPerson.name.lowercaseString.containsString(searchText.lowercaseString) || aPerson.number.containsString(searchText)
+            return aPerson.name.lowercased().contains(searchText.lowercased()) || aPerson.number.contains(searchText)
         }
         
         peopleTableView.reloadData()
