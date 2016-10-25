@@ -1,9 +1,9 @@
-language: swift
+language: objective-c
 osx_image: xcode8
 
 script:
-- xcodebuild -version
-- xcodebuild -project ContactBrowser.xcodeproj -scheme ContactBrowser -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6S" clean build test
+- xcodebuild -version 8
+- xcodebuild -project ContactBrowser.xcodeproj -scheme ContactBrowser -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6S" test
 
 after_success:
 - bash <(curl -s https://codecov.io/bash) -J 'ContactBrowser'
