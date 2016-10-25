@@ -3,7 +3,7 @@ osx_image: xcode8
 
 script:
 - xcodebuild -version
-- xcodebuild -project ContactBrowser.xcodeproj -scheme ContactBrowser -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6S" test
+- xcodebuild -project ContactBrowser.xcodeproj -scheme ContactBrowser -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6S" ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO test
 
 after_success:
 - bash <(curl -s https://codecov.io/bash) -J 'ContactBrowser'
