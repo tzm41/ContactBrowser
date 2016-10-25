@@ -2,7 +2,7 @@ language: objective-c
 osx_image: xcode8
 
 script:
-- xcodebuild -version 8
+- xcodebuild -version
 - xcodebuild -project ContactBrowser.xcodeproj -scheme ContactBrowser -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 6S" test
 
 after_success:
