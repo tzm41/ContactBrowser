@@ -185,8 +185,8 @@
 				TargetAttributes = {
 					3BAA690D1D075FB8006680A4 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = THP5EV5EJ9;
 						LastSwiftMigration = 0800;
-						TestTargetID = 3BFDA8121D0610FC00946E61;
 					};
 					3BFDA8121D0610FC00946E61 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -288,26 +288,24 @@
 		3BAA69161D075FB8006680A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = THP5EV5EJ9;
 				INFOPLIST_FILE = ContactBrowserTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ContactBrowserTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CBrowser.app/CBrowser";
 			};
 			name = Debug;
 		};
 		3BAA69171D075FB8006680A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = THP5EV5EJ9;
 				INFOPLIST_FILE = ContactBrowserTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ContactBrowserTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CBrowser.app/CBrowser";
 			};
 			name = Release;
 		};
