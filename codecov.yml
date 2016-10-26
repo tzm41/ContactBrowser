@@ -25,6 +25,8 @@ coverage:
 
   ignore:
     - .*/ContactBrowserTests/.*
+    - *ViewController.swift
+    - AppDelegate.swift
 
 comment:
   layout: "header, diff, changes, suggestions"
