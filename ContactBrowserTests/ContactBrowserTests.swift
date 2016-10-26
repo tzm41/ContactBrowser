@@ -15,5 +15,7 @@ class ContactBrowserTests: XCTestCase {
         XCTAssertNotNil(person1)
         print("Name: " + person1.name)
         print("Number: " + person1.number)
+        
+        person1.callNumber()
     }
 }
