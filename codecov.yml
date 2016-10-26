@@ -1,0 +1,31 @@
+codecov:
+  branch: master
+
+coverage:
+  precision: 2
+  round: nearest
+  range: 5...50
+
+  status:
+    project:
+      default:
+        target: 1.0%
+        threshold: 5.0%
+        branches:
+          - master
+        if_no_uploads: error
+
+    patch:
+      default:
+        target: 0.0%
+        threshold: 10.0%
+        if_no_uploads: error
+
+    changes: true
+
+  ignore:
+    - .*/ContactBrowserTests/.*
+
+comment:
+  layout: "header, diff, changes, suggestions"
+  behavior: default
